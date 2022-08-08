@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sih_student_app/pages/auth/auth_screen.dart';
 import 'package:sih_student_app/pages/splash_screen.dart';
 
 Future<void> main() async {
@@ -33,15 +34,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.teal,
+        useMaterial3: true,
         // fontFamily: "MontserratAlternates",
         textTheme: GoogleFonts.montserratTextTheme(
         Theme.of(context).textTheme,
         ),
       ),
-      initialRoute: 'home',
-      routes: {
-        'home': (context) => SplashScreen(),
-      },
+      home: const AuthScreen(),
+      // home: SplashScreen(),
     );
   }
 }
