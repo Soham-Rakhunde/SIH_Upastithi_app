@@ -24,9 +24,9 @@ class SignUpBar extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
               color: Palette.darkBlue,
-              fontSize: 24,
+              fontSize: 26,
             ),
           ),
           Expanded(
@@ -64,9 +64,9 @@ class SignInBar extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w900,
               color: Colors.white,
-              fontSize: 24,
+              fontSize: 26,
             ),
           ),
           Expanded(
@@ -99,6 +99,7 @@ class _LoadingIndicator extends StatelessWidget {
         visible: isLoading,
         child: const LinearProgressIndicator(
           backgroundColor: Palette.darkBlue,
+          color: Palette.lightBlue,
         ),
       ),
     );
@@ -119,7 +120,7 @@ class _RoundContinueButton extends StatelessWidget {
       onPressed: onPressed,
       elevation: 0.0,
       fillColor: Palette.darkBlue,
-      splashColor: Palette.darkOrange,
+      splashColor: Palette.lightBlue,
       padding: const EdgeInsets.all(22.0),
       shape: const CircleBorder(),
       child: const Icon(

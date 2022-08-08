@@ -1,31 +1,32 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sih_student_app/pages/auth/forgot_password.dart';
 import 'package:sih_student_app/pages/auth/register.dart';
 import 'package:sih_student_app/pages/auth/sign_in.dart';
 import 'package:sih_student_app/pages/auth/widgets/background_painter.dart';
+import 'package:sih_student_app/services/providers.dart';
 
-
-class AuthScreen extends StatefulWidget {
+class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
   static MaterialPageRoute get route => MaterialPageRoute(
-    builder: (context) => const AuthScreen(),
-  );
+        builder: (context) => const AuthScreen(),
+      );
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen>
+class _AuthScreenState extends ConsumerState<AuthScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  ValueNotifier<bool> showSignInPage = ValueNotifier<bool>(true);
 
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2) );
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _controller.value = 1;
     super.initState();
   }
@@ -51,43 +52,52 @@ class _AuthScreenState extends State<AuthScreen>
           Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 800),
-              child: ValueListenableBuilder<bool>(
-                valueListenable: showSignInPage,
-                builder: (context, value, child) {
-                  return SizedBox.expand(
-                    child: PageTransitionSwitcher(
-                      reverse: !value,
-                      duration: const Duration(milliseconds: 800),
-                      transitionBuilder:
-                          (child, animation, secondaryAnimation) {
-                        return SharedAxisTransition(
-                          animation: animation,
-                          secondaryAnimation: secondaryAnimation,
-                          transitionType: SharedAxisTransitionType.vertical,
-                          fillColor: Colors.transparent,
-                          child: child,
-                        );
-                      },
-                      child: value
-                          ? SignIn(
+              child: SizedBox.expand(
+                child: PageTransitionSwitcher(
+                    reverse: ref.watch(authPageController) != authPages.sign_in,
+                    duration: const Duration(milliseconds: 800),
+                    transitionBuilder: (child, animation, secondaryAnimation) {
+                      return SharedAxisTransition(
+                        animation: animation,
+                        secondaryAnimation: secondaryAnimation,
+                        transitionType: SharedAxisTransitionType.vertical,
+                        fillColor: Colors.transparent,
+                        child: child,
+                      );
+                    },
+                    child: [
+                      SignIn(
                         key: const ValueKey('SignIn'),
                         onRegisterClicked: () {
-                          // context.resetSignInForm();
-                          showSignInPage.value = false;
+                          ref.watch(authPageController.notifier).state =
+                              authPages.register;
                           _controller.reverse();
                         },
-                      )
-                          : Register(
+                        onForgotClicked: () {
+                          ref.watch(authPageController.notifier).state =
+                              authPages.reset_password;
+                          _controller.reverse();
+                        }
+                      ),
+                      Register(
                         key: const ValueKey('Register'),
                         onSignInPressed: () {
                           // context.resetSignInForm();
-                          showSignInPage.value = true;
+                          ref.watch(authPageController.notifier).state =
+                              authPages.sign_in;
                           _controller.forward();
                         },
                       ),
-                    ),
-                  );
-                },
+                      ForgotPassword(
+                        key: const ValueKey('ForgotPassword'),
+                        onSignInPressed: () {
+                          // context.resetSignInForm();
+                          ref.watch(authPageController.notifier).state =
+                              authPages.sign_in;
+                          _controller.forward();
+                        },
+                      ),
+                    ].elementAt(ref.watch(authPageController).index)),
               ),
             ),
           )

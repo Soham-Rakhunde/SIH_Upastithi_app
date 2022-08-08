@@ -7,12 +7,11 @@ import 'package:sih_student_app/pages/homePage.dart';
 import 'package:sih_student_app/services/colors.dart';
 import 'package:sih_student_app/services/providers.dart';
 
-class Register extends ConsumerWidget {
-  Register({Key? key, required this.onSignInPressed}) : super(key: key);
+class ForgotPassword extends ConsumerWidget {
+  ForgotPassword({Key? key, required this.onSignInPressed}) : super(key: key);
 
   final VoidCallback onSignInPressed;
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,11 +28,11 @@ class Register extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Expanded(
-              flex: 6,
+              flex: 8,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Create\nAccount',
+                  'Reset\nPassword',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -42,6 +41,7 @@ class Register extends ConsumerWidget {
                 ),
               ),
             ),
+            Spacer(flex:2 ,),
             Expanded(
               flex: 8,
               child: ListView(
@@ -55,43 +55,24 @@ class Register extends ConsumerWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.w700
                         ),
-                        decoration: registerInputDecoration(hintText: 'Email')),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      style: const TextStyle(
-                          color: Palette.darkBlue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700
-                      ),
-                      decoration: registerInputDecoration(hintText: 'Password'),
-                    ),
+                        decoration: registerInputDecoration(hintText: 'Enter Email')),
                   ),
                   SignUpBar(
-                    label: 'Sign up',
+                    label: 'Send',
                     isLoading: true,
                     // isLoading: isSubmitting,
                     onPressed: () async {
                       final email = _emailController.text;
-                      final password = _passwordController.text;
                       try {
-                        UserCredential userCred =
-                            await ref.read(authInst).createUserWithEmailAndPassword(
+                        await ref.read(authInst).sendPasswordResetEmail(
                           email: email.trim(),
-                          password: password,
                         );
-
-                        if (userCred.user != null) {
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                                  builder: (context) {
-                                    return const HomePage();
-                                  }),
-                                  (route) => false
-                          );
-                        }
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Reset Link sent to mail. Check your email to reset the password"),
+                          shape: const StadiumBorder(),
+                          behavior: SnackBarBehavior.floating,
+                        ));
+                        onSignInPressed.call();
                       } on FirebaseAuthException catch (error) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Error: ${error.message}"),
@@ -105,8 +86,9 @@ class Register extends ConsumerWidget {
               ),
             ),
 
+
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width*0.06),
                 child: FittedBox(
@@ -117,7 +99,8 @@ class Register extends ConsumerWidget {
                       onSignInPressed.call();
                     },
                     child: Text(
-                      "Already have an Account? Log in.",
+                      "After sending the reset request\nCheck your email for the reset link",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         // decoration: TextDecoration.underline,
                         fontWeight: FontWeight.w800,
