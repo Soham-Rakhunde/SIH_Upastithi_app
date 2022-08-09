@@ -4,13 +4,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:sih_student_app/services/colors.dart';
 
-
 class BackgroundPainter extends CustomPainter {
   BackgroundPainter({
     required Animation<double> animation,
   })  : bluePaint = Paint()
-    ..color = Palette.lightBlue
-    ..style = PaintingStyle.fill,
+          ..color = Palette.lightBlue
+          ..style = PaintingStyle.fill,
         greyPaint = Paint()
           ..color = Palette.darkBlue
           ..style = PaintingStyle.fill,
@@ -18,7 +17,7 @@ class BackgroundPainter extends CustomPainter {
           ..color = Palette.orange
           ..style = PaintingStyle.fill,
         linePaint = Paint()
-          ..color = Color(0xffFFB74D)
+          ..color = const Color(0xffFFB74D)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 4,
         liquidAnim = CurvedAnimation(
@@ -97,7 +96,6 @@ class BackgroundPainter extends CustomPainter {
     path.lineTo(
       0,
       lerpDouble(0, size.height, blueAnim.value)!,
-
     );
     _addPointsToPath(path, [
       Point(
@@ -114,7 +112,6 @@ class BackgroundPainter extends CustomPainter {
       ),
     ]);
     canvas.drawPath(path, bluePaint);
-
   }
 
   void paintGrey(Size size, Canvas canvas) {

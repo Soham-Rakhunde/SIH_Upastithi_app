@@ -43,8 +43,10 @@ class SplashScreen extends ConsumerWidget {
             );
           }
           if (snapshot.hasData) {
-            ref.read(userIdProvider.notifier).state =
-                ref.read(authInst).currentUser!.uid;
+            ref.read(authController.notifier).state = ref
+                .read(authController.notifier)
+                .state
+                .copyWith(id: ref.read(authInst).currentUser!.uid);
             return const HomePage();
             // return FutureBuilder<DocumentSnapshot>(
             //     future: getUserData(ref),
@@ -89,17 +91,5 @@ class SplashScreen extends ConsumerWidget {
             return const AuthScreen();
           }
         });
-  }
-
-  void _navigateToAuthScreen(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacement(AuthScreen.route),
-    );
-  }
-
-  void _navigateToHomeScreen(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacement(HomePage.route),
-    );
   }
 }

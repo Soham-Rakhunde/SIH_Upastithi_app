@@ -8,8 +8,9 @@ const redGradient = [
 const shadowColor = Colors.black38;
 const textColor = Colors.black54;
 
-List<BoxShadow> boxShadow = [const BoxShadow(
-    color: shadowColor, offset: Offset(0, 1), blurRadius: 9),];
+List<BoxShadow> boxShadow = [
+  const BoxShadow(color: shadowColor, offset: Offset(0, 1), blurRadius: 9),
+];
 
 class Palette {
   static const Color darkBlue = Color(0xff092E34);

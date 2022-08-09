@@ -36,12 +36,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         useMaterial3: true,
         // fontFamily: "MontserratAlternates",
-        textTheme: GoogleFonts.montserratTextTheme(
-        Theme.of(context).textTheme,
+        textTheme: GoogleFonts.montserratAlternatesTextTheme(
+          Theme.of(context).textTheme,
         ),
       ),
       home: const AuthScreen(),
-      // home: SplashScreen(),
+      // home: const SplashScreen(),
     );
   }
 }

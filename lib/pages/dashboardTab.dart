@@ -23,6 +23,7 @@ class DashboardTab extends ConsumerWidget {
       return AnnualTaskItem(prevDate, rnd.nextDouble());
     });
   }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
@@ -43,10 +44,7 @@ class DashboardTab extends ConsumerWidget {
             child: FittedBox(
               child: Text(
                 "Dashboard",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: textColor
-                ),
+                style: TextStyle(fontWeight: FontWeight.w600, color: textColor),
               ),
             ),
           ),

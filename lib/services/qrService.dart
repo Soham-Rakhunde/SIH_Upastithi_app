@@ -3,9 +3,8 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrService {
   MobileScannerController controller =
-  MobileScannerController(torchEnabled: false);
+      MobileScannerController(torchEnabled: false);
   bool scanned = false;
-
 
   MobileScanner scanQr(ValueSetter<String> onQrCodeDetect,
       {isScanned = false}) {

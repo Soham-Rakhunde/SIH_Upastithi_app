@@ -52,18 +52,17 @@ class ProfileTab extends StatelessWidget {
           Expanded(
               flex: 4,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width*0.05),
-                child: FittedText(
-                  "Soham Rakhunde",
-                  weight: FontWeight.w900,
-                )
-              )),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                  child: FittedText(
+                    "Soham Rakhunde",
+                    weight: FontWeight.w900,
+                  ))),
           Expanded(
-            flex:9,
+            flex: 9,
             child: RoundedContainer(
               size: size,
               child: Padding(
-                padding:  EdgeInsets.all(size.width*0.03),
+                padding: EdgeInsets.all(size.width * 0.03),
                 child: Column(
                   children: [
                     Expanded(
@@ -91,7 +90,7 @@ class ProfileTab extends StatelessWidget {
                       ),
                     ),
                     const Divider(
-                    thickness: 2,
+                      thickness: 2,
                     ),
                     Expanded(
                       child: FittedText(

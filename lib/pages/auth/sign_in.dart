@@ -1,26 +1,40 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sih_student_app/pages/auth/widgets/decoration_functions.dart';
 import 'package:sih_student_app/pages/auth/widgets/sign_in_up_bar.dart';
-import 'package:sih_student_app/pages/homePage.dart';
-import 'package:sih_student_app/services/colors.dart';
 import 'package:sih_student_app/services/providers.dart';
 
-class SignIn extends ConsumerWidget {
+class SignIn extends ConsumerStatefulWidget {
   SignIn({
     Key? key,
-    required this.onRegisterClicked,
     required this.onForgotClicked,
   }) : super(key: key);
 
-  final VoidCallback onRegisterClicked, onForgotClicked;
-  Color textColor = Colors.white;
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final VoidCallback onForgotClicked;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends ConsumerState<SignIn> {
+  Color textColor = Colors.white;
+  late TextEditingController _emailController, _passwordController;
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // final isSubmitting = context.isSubmitting();
     return Container(
@@ -43,7 +57,9 @@ class SignIn extends ConsumerWidget {
               ),
             ),
           ),
-          const Spacer(flex: 2,),
+          const Spacer(
+            flex: 2,
+          ),
           Expanded(
             flex: 9,
             child: ListView(
@@ -72,40 +88,22 @@ class SignIn extends ConsumerWidget {
                 SignInBar(
                   label: 'Sign in',
                   isLoading: false,
-                  // isLoading: isSubmitting,
                   onPressed: () async {
-                    final email = _emailController.text;
+                    final email = _emailController.text.trim();
                     final password = _passwordController.text;
-                    try {
-                      UserCredential userCred =
-                          await ref.read(authInst).signInWithEmailAndPassword(
-                                email: email.trim(),
-                                password: password,
-                              );
-
-                      if (userCred.user != null) {
-                        Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const HomePage();
-                        }), (route) => false);
-                      }
-                    } on FirebaseAuthException catch (error) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("Error: ${error.message}"),
-                        shape: const StadiumBorder(),
-                        behavior: SnackBarBehavior.floating,
-                      ));
-                    }
+                    ref
+                        .watch(authController.notifier)
+                        .signIn(email, password, ref, context);
                   },
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: size.width*0.48, top: 10),
+                  padding: EdgeInsets.only(right: size.width * 0.4, top: 10),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: InkWell(
                       splashColor: Colors.transparent,
                       onTap: () async {
-                        onForgotClicked.call();
+                        widget.onForgotClicked.call();
                       },
                       child: Text(
                         "Forgot Password?",
@@ -121,29 +119,29 @@ class SignIn extends ConsumerWidget {
               ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width*0.06),
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  onTap: () async {
-                    onRegisterClicked.call();
-                  },
-                  child: Text(
-                    "Don't have an Account? Sign up.",
-                    style: TextStyle(
-                      // decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.w800,
-                      color: Palette.darkBlue.withOpacity(0.8),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.12),
+          //     child: FittedBox(
+          //       fit: BoxFit.fitWidth,
+          //       child: InkWell(
+          //         splashColor: Colors.transparent,
+          //         onTap: () async {
+          //           widget.onForgotClicked.call();
+          //         },
+          //         child: Text(
+          //           "Forgot Password?",
+          //           style: TextStyle(
+          //             // decoration: TextDecoration.underline,
+          //             fontWeight: FontWeight.w800,
+          //             color: Palette.darkBlue.withOpacity(0.8),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

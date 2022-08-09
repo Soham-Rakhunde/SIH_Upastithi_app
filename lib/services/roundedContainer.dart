@@ -4,7 +4,8 @@ import 'package:sih_student_app/services/colors.dart';
 class RoundedContainer extends StatelessWidget {
   Size size;
   Widget? child;
-  RoundedContainer({Key? key, required this.size, this.child}) : super(key: key);
+  RoundedContainer({Key? key, required this.size, this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class FittedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  FittedBox(
+    return FittedBox(
       child: Text(
         text,
         style: TextStyle(fontWeight: weight, color: textColor),

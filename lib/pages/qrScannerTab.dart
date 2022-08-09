@@ -22,7 +22,7 @@ class _QrScannerTabState extends State<QrScannerTab> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      child:  Stack(
+      child: Stack(
         fit: StackFit.expand,
         children: [
           Positioned.fill(

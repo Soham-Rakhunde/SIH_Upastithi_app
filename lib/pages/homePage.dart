@@ -12,8 +12,8 @@ class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   static MaterialPageRoute get route => MaterialPageRoute(
-    builder: (context) => const HomePage(),
-  );
+        builder: (context) => const HomePage(),
+      );
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -63,8 +63,10 @@ class _HomePageState extends ConsumerState<HomePage>
       extendBody: true,
       bottomNavigationBar: DotNavigationBar(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
-        marginR: EdgeInsets.symmetric(vertical: size.width*0.05, horizontal: size.width*0.08),
-        itemPadding: EdgeInsets.symmetric(vertical: size.width*0.04, horizontal: size.width*0.06),
+        marginR: EdgeInsets.symmetric(
+            vertical: size.width * 0.05, horizontal: size.width * 0.08),
+        itemPadding: EdgeInsets.symmetric(
+            vertical: size.width * 0.04, horizontal: size.width * 0.06),
         dotIndicatorColor: Colors.transparent,
         borderRadius: 20,
         onTap: _handleIndexChanged,

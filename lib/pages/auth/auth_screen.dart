@@ -1,11 +1,9 @@
 import 'package:animations/animations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sih_student_app/pages/auth/forgot_password.dart';
-import 'package:sih_student_app/pages/auth/register.dart';
 import 'package:sih_student_app/pages/auth/sign_in.dart';
-import 'package:sih_student_app/pages/auth/widgets/background_painter.dart';
+import 'package:sih_student_app/services/background_painter.dart';
 import 'package:sih_student_app/services/providers.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
@@ -39,6 +37,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    print(size);
     return Scaffold(
       body: Stack(
         children: [
@@ -51,7 +51,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
           ),
           Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
+              constraints: BoxConstraints(maxWidth: size.width * 0.95),
               child: SizedBox.expand(
                 child: PageTransitionSwitcher(
                     reverse: ref.watch(authPageController) != authPages.sign_in,
@@ -67,27 +67,12 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
                     },
                     child: [
                       SignIn(
-                        key: const ValueKey('SignIn'),
-                        onRegisterClicked: () {
-                          ref.watch(authPageController.notifier).state =
-                              authPages.register;
-                          _controller.reverse();
-                        },
-                        onForgotClicked: () {
-                          ref.watch(authPageController.notifier).state =
-                              authPages.reset_password;
-                          _controller.reverse();
-                        }
-                      ),
-                      Register(
-                        key: const ValueKey('Register'),
-                        onSignInPressed: () {
-                          // context.resetSignInForm();
-                          ref.watch(authPageController.notifier).state =
-                              authPages.sign_in;
-                          _controller.forward();
-                        },
-                      ),
+                          key: const ValueKey('SignIn'),
+                          onForgotClicked: () {
+                            ref.watch(authPageController.notifier).state =
+                                authPages.reset_password;
+                            _controller.reverse();
+                          }),
                       ForgotPassword(
                         key: const ValueKey('ForgotPassword'),
                         onSignInPressed: () {
