@@ -69,7 +69,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                     // isLoading: isSubmitting,
                     onPressed: () async {
                       final email = _emailController.text.trim();
-                      ref.watch(authController.notifier).changePassword(
+                      ref.watch(userController.notifier).resetPassword(
                           email, widget.onSignInPressed, ref, context);
                     },
                   ),

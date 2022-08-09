@@ -92,7 +92,7 @@ class _SignInState extends ConsumerState<SignIn> {
                     final email = _emailController.text.trim();
                     final password = _passwordController.text;
                     ref
-                        .watch(authController.notifier)
+                        .watch(userController.notifier)
                         .signIn(email, password, ref, context);
                   },
                 ),

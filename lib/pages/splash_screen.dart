@@ -43,10 +43,8 @@ class SplashScreen extends ConsumerWidget {
             );
           }
           if (snapshot.hasData) {
-            ref.read(authController.notifier).state = ref
-                .read(authController.notifier)
-                .state
-                .copyWith(id: ref.read(authInst).currentUser!.uid);
+            String uuid = ref.read(authInst).currentUser!.uid;
+            ref.read(userController.notifier).getUserData(uuid, context);
             return const HomePage();
             // return FutureBuilder<DocumentSnapshot>(
             //     future: getUserData(ref),

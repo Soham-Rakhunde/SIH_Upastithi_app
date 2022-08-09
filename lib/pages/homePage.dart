@@ -7,6 +7,7 @@ import 'package:sih_student_app/pages/dashboardTab.dart';
 import 'package:sih_student_app/pages/profileTab.dart';
 import 'package:sih_student_app/pages/qrScannerTab.dart';
 import 'package:sih_student_app/services/colors.dart';
+import 'package:sih_student_app/services/providers.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,11 +20,9 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-enum _SelectedTab { home, favorite, search, person }
 
 class _HomePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin {
-  var _selectedTab = _SelectedTab.home;
 
   List tabs = [
     DashboardTab(),
@@ -35,14 +34,13 @@ class _HomePageState extends ConsumerState<HomePage>
   ];
 
   void _handleIndexChanged(int i) {
-    setState(() {
-      _selectedTab = _SelectedTab.values[i];
-    });
+    ref.watch(homeTabController.notifier).state = homeTabs.values[i];
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final selectedIndex = ref.watch(homeTabController).index;
     return Scaffold(
       body: PageTransitionSwitcher(
         duration: const Duration(milliseconds: 1000),
@@ -58,11 +56,11 @@ class _HomePageState extends ConsumerState<HomePage>
             child: child,
           );
         },
-        child: tabs[_SelectedTab.values.indexOf(_selectedTab)],
+        child: tabs[selectedIndex],
       ),
       extendBody: true,
       bottomNavigationBar: DotNavigationBar(
-        currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+        currentIndex: selectedIndex,
         marginR: EdgeInsets.symmetric(
             vertical: size.width * 0.05, horizontal: size.width * 0.08),
         itemPadding: EdgeInsets.symmetric(

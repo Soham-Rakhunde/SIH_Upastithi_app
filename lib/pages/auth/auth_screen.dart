@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sih_student_app/pages/auth/forgot_password.dart';
 import 'package:sih_student_app/pages/auth/sign_in.dart';
-import 'package:sih_student_app/services/background_painter.dart';
+import 'package:sih_student_app/services/Profile/background_painter.dart';
 import 'package:sih_student_app/services/providers.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {

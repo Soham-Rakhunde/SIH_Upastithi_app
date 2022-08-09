@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sih_student_app/pages/auth/AuthModel.dart';
-import 'package:sih_student_app/services/state_notifiers/auth_notifier.dart';
+import 'package:sih_student_app/services/Profile/user_model.dart';
+import 'package:sih_student_app/services/Profile/user_notifier.dart';
+import 'package:sih_student_app/services/qr/qrModel.dart';
+import 'package:sih_student_app/services/qr/qr_notifier.dart';
 
 //Firebase Instances
 final authInst = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -14,6 +16,14 @@ enum authPages { sign_in, reset_password }
 
 final authPageController = StateProvider<authPages>((ref) => authPages.sign_in);
 
-final authController = StateNotifierProvider<AuthNotifier, AuthModel>((ref) {
-  return AuthNotifier(const AuthModel());
+final userController = StateNotifierProvider<UserNotifier, UserModel>((ref) {
+  return UserNotifier(UserModel());
 });
+
+final qrController = StateNotifierProvider<QrNotifier, QrModel>((ref) {
+  return QrNotifier(QrModel());
+});
+
+
+enum homeTabs { dashboard, scholarship, qr, profile }
+final homeTabController = StateProvider<homeTabs>((ref) => homeTabs.dashboard);
