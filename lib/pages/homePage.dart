@@ -68,7 +68,7 @@ class _HomePageState extends ConsumerState<HomePage>
         dotIndicatorColor: Colors.transparent,
         borderRadius: 20,
         onTap: _handleIndexChanged,
-        boxShadow: boxShadow,
+        boxShadow: ref.watch(homeTabController) != homeTabs.profile ? boxShadow : [],
         items: [
           /// Home
           DotNavigationBarItem(

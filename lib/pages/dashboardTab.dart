@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter_annual_task/flutter_annual_task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sih_student_app/common_widgets/roundedContainer.dart';
 import 'package:sih_student_app/services/colors.dart';
-import 'package:sih_student_app/services/roundedContainer.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class DashboardTab extends ConsumerWidget {

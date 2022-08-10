@@ -9,6 +9,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:sih_student_app/common_widgets/alert_dialog.dart';
 import 'package:sih_student_app/pages/homePage.dart';
+import 'package:sih_student_app/pages/splash_screen.dart';
 import 'package:sih_student_app/services/Profile/user_model.dart';
 import 'package:sih_student_app/services/providers.dart';
 
@@ -40,6 +41,14 @@ class UserNotifier extends StateNotifier<UserModel> {
           asset: 'assets/lottie/empty.json',
           autoDispose: false);
     }
+  }
+
+  logout(BuildContext context, WidgetRef ref){
+    ref.watch(authInst).signOut();
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) {
+          return const SplashScreen();
+        }), (route) => false);
   }
 
   getUserData(String uuid, BuildContext context) async {

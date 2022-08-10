@@ -1,30 +1,7 @@
-
-// @immutable
-// class AuthModel {
-//   const AuthModel({this.id, this.mobile, this.name, this.email});
-//
-//   final bool isAuthenticated = false;
-//   final String? id;
-//   // final String? uuid;
-//   final String? mobile;
-//   final String? name;
-//   final String? email;
-//
-//   AuthModel copyWith(
-//       {String? id, String? mobile, String? name, String? email}) {
-//     return AuthModel(
-//       id: id ?? this.id,
-//       mobile: mobile ?? this.mobile,
-//       name: name ?? this.name,
-//       email: email ?? this.email,
-//     );
-//   }
-// }
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
-
 import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jiffy/jiffy.dart';
 
 class UserModel {
   UserModel({
@@ -191,6 +168,13 @@ class CreatedTime {
   final int? seconds;
   final int? nanoseconds;
 
+
+  @override
+  String toString() {
+    final time = Jiffy.unixFromSecondsSinceEpoch(seconds??0);
+    return "${time.date} ${time.MMM} ${time.year}";
+  }
+
   CreatedTime copyWith({
     int? seconds,
     int? nanoseconds,
@@ -234,6 +218,12 @@ class StudentAddress {
   final int? pinCode;
   final String? taluka;
   final String? city;
+
+
+  @override
+  String toString() {
+    return "$address, $taluka, $city, $district, $state - $pinCode ";
+  }
 
   StudentAddress copyWith({
     String? address,
@@ -368,6 +358,11 @@ class StudentName {
      this.studentFirstName,
      this.studentMiddleName,
   });
+
+  @override
+  String toString() {
+    return "$studentFirstName $studentLastName";
+  }
 
   final String? studentLastName;
   final String? studentFirstName;
