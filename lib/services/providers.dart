@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sih_student_app/services/Profile/user_model.dart';
 import 'package:sih_student_app/services/Profile/user_notifier.dart';
+import 'package:sih_student_app/services/providers.dart';
 import 'package:sih_student_app/services/qr/qrModel.dart';
 import 'package:sih_student_app/services/qr/qr_notifier.dart';
 import 'package:sih_student_app/services/scholarships/scholarship_model.dart';
@@ -34,3 +35,7 @@ final scholarshipController = StateNotifierProvider<ScholarshipNotifier, Scholar
 
 enum homeTabs { dashboard, scholarship, qr, profile }
 final homeTabController = StateProvider<homeTabs>((ref) => homeTabs.dashboard);
+
+final tabsDirection = StateProvider<bool>((ref) {
+  return true;
+});

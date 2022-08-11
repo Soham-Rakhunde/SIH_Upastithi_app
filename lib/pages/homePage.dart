@@ -40,9 +40,22 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final selectedIndex = ref.watch(homeTabController).index;
+
+
+    ref.listen(homeTabController, (homeTabs? previous, homeTabs next) {
+      if(previous!=null && next.index >= previous.index){
+        ref.watch(tabsDirection.notifier).state = false;
+      }
+      else{
+        ref.watch(tabsDirection.notifier).state = true;
+      }
+    });
+    
     return Scaffold(
+      // backgroundColor: homePageColors[ref.watch()],
       body: PageTransitionSwitcher(
         duration: const Duration(milliseconds: 1000),
+        reverse: ref.watch(tabsDirection),
         transitionBuilder: (
           Widget child,
           Animation<double> animation,
@@ -51,7 +64,7 @@ class _HomePageState extends ConsumerState<HomePage>
           return SharedAxisTransition(
             animation: animation,
             secondaryAnimation: secondaryAnimation,
-            transitionType: SharedAxisTransitionType.scaled,
+            transitionType: SharedAxisTransitionType.horizontal,
             child: child,
           );
         },

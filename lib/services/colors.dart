@@ -7,7 +7,9 @@ const redGradient = [
 ];
 const shadowColor = Colors.black38;
 const textColor = Colors.black54;
+const dashColor = Color(0xffECEFF8);
 const profileColor = Color(0xffECEFF8);
+const qrColor = Color(0xffECEFF8);
 const scholarshipColor = Color(0xfff9f4f4);
 
 List<BoxShadow> boxShadow = [

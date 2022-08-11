@@ -39,12 +39,16 @@ class DashboardTab extends ConsumerWidget {
           const Spacer(
             flex: 1,
           ),
-          const Expanded(
-            flex: 2,
+          Expanded(
+            flex: 3,
             child: FittedBox(
-              child: Text(
-                "Dashboard",
-                style: TextStyle(fontWeight: FontWeight.w600, color: textColor),
+              fit: BoxFit.fitWidth,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+                child: Text(
+                  "Dashboard",
+                  style: TextStyle(fontWeight: FontWeight.w600, color: textColor),
+                ),
               ),
             ),
           ),
