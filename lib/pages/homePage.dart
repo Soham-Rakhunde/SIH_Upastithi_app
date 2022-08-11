@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sih_student_app/pages/dashboardTab.dart';
 import 'package:sih_student_app/pages/profileTab.dart';
 import 'package:sih_student_app/pages/qrScannerTab.dart';
+import 'package:sih_student_app/pages/scholarshipTab.dart';
 import 'package:sih_student_app/services/colors.dart';
 import 'package:sih_student_app/services/providers.dart';
 
@@ -26,9 +27,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
   List tabs = [
     DashboardTab(),
-    Container(
-      color: Colors.blue,
-    ),
+    ScholarshipTab(),
     QrScannerTab(),
     ProfileTab(),
   ];
@@ -68,7 +67,7 @@ class _HomePageState extends ConsumerState<HomePage>
         dotIndicatorColor: Colors.transparent,
         borderRadius: 20,
         onTap: _handleIndexChanged,
-        boxShadow: ref.watch(homeTabController) != homeTabs.profile ? boxShadow : [],
+        boxShadow: (ref.watch(homeTabController).index %2 == 0)  ? boxShadow : [],
         items: [
           /// Home
           DotNavigationBarItem(

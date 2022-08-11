@@ -13,12 +13,17 @@ class QrNotifier extends StateNotifier<QrModel> {
 
   bool scanned = false;
 
+  // init(){
+  //   state.controller = MobileScannerController(torchEnabled: false);
+  // }
+
   scanQr(
       BuildContext context, WidgetRef ref,
       {isScanned = false, required VoidCallback navigateToDash}) {
     scanned = isScanned;
     return MobileScanner(
-        controller: state.controller,
+        // controller: state.controller,
+      allowDuplicates: false,
         onDetect: ((qr, args) async {
           print('QRCODE ${qr.rawValue}');
           if (!scanned) {
@@ -28,7 +33,9 @@ class QrNotifier extends StateNotifier<QrModel> {
               state = QrModel.fromRawJson(jsonData);
               await markAttendance(context, ref);
               navigateToDash.call();
-              cameraDispose();
+              // await state.controller.stop();
+              // await state.controller.start();
+              // cameraDispose();
             }on Exception catch(error){
               scanned= false;
             }
@@ -66,12 +73,12 @@ class QrNotifier extends StateNotifier<QrModel> {
 
   String base64ToJson(String qrValue) => utf8.decode(base64.decode(qrValue));
 
-  @override
-  void dispose() {
-    super.dispose();
-    cameraDispose();
-    print("disposeddd");
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   // cameraDispose();
+  //   print("disposeddd");
+  // }
 
-  cameraDispose() => state.controller.dispose();
+  // cameraDispose() => state.controller.dispose();
 }

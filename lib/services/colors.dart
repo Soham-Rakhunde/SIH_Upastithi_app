@@ -8,6 +8,7 @@ const redGradient = [
 const shadowColor = Colors.black38;
 const textColor = Colors.black54;
 const profileColor = Color(0xffECEFF8);
+const scholarshipColor = Color(0xfff9f4f4);
 
 List<BoxShadow> boxShadow = [
   const BoxShadow(color: shadowColor, offset: Offset(0, 1), blurRadius: 9),

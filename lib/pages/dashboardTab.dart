@@ -49,7 +49,7 @@ class DashboardTab extends ConsumerWidget {
             ),
           ),
           const Spacer(
-            flex: 1,
+            flex: 2,
           ),
           Expanded(
             flex: 10,

@@ -10,7 +10,7 @@ class QrModel {
 
   final String? tempOtp;
   final String? tempCode;
-  final MobileScannerController controller;
+  MobileScannerController controller;
 
   QrModel copyWith({
     String? tempOtp,

@@ -4,6 +4,8 @@ import 'package:sih_student_app/services/Profile/user_model.dart';
 import 'package:sih_student_app/services/Profile/user_notifier.dart';
 import 'package:sih_student_app/services/qr/qrModel.dart';
 import 'package:sih_student_app/services/qr/qr_notifier.dart';
+import 'package:sih_student_app/services/scholarships/scholarship_model.dart';
+import 'package:sih_student_app/services/scholarships/scholarship_notifier.dart';
 
 //Firebase Instances
 final authInst = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -22,6 +24,11 @@ final userController = StateNotifierProvider<UserNotifier, UserModel>((ref) {
 
 final qrController = StateNotifierProvider<QrNotifier, QrModel>((ref) {
   return QrNotifier(QrModel());
+});
+
+
+final scholarshipController = StateNotifierProvider<ScholarshipNotifier, ScholarshipModel>((ref) {
+  return ScholarshipNotifier(ScholarshipModel());
 });
 
 

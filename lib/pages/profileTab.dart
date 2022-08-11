@@ -19,7 +19,7 @@ class ProfileTab extends ConsumerWidget {
       shaderCallback: (rect) {
         return LinearGradient(
           begin: Alignment.topCenter,
-          stops: [0.865,0.865],
+          stops: [0.865, 0.865],
           end: Alignment.bottomCenter,
           colors: [Colors.transparent, profileColor],
         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
@@ -33,34 +33,37 @@ class ProfileTab extends ConsumerWidget {
             padding: EdgeInsets.all(size.width * 0.08),
             child: Column(
               children: [
+
+                SizedBox(
+                  height: space,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       ref.watch(userController.notifier).logout(context, ref);
                     },
                     child: Container(
-                      height: size.height * 0.08,
-                      width: size.height * 0.08,
+                      height: size.width * 0.15,
+                      width: size.width * 0.15,
                       clipBehavior: Clip.hardEdge,
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(size.width * 0.01),
                       decoration: BoxDecoration(
-                          color: bgColor,
-                          borderRadius:
-                          BorderRadius.circular(size.width * 0.05),
-                          // boxShadow: boxShadow
+                        color: bgColor,
+                        borderRadius: BorderRadius.circular(size.width * 0.05),
+                        // boxShadow: boxShadow
                       ),
                       child: FittedBox(
                           child: FaIcon(
-                            FontAwesomeIcons.rightFromBracket,
-                            size: size.width / 15,
-                          )),
+                        FontAwesomeIcons.rightFromBracket,
+                        size: size.width / 15,
+                      )),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: size.height * 0.01,
+                  height: size.height * 0.02,
                 ),
                 Container(
                   width: size.width * 0.5,
@@ -70,8 +73,7 @@ class ProfileTab extends ConsumerWidget {
                   decoration: BoxDecoration(
                       color: bgColor,
                       borderRadius: BorderRadius.circular(size.width * 0.08),
-                      boxShadow: boxShadow
-                  ),
+                      boxShadow: boxShadow),
                   child: InkWell(
                     onTap: () {
                       print("ddddddddddddd");
@@ -104,8 +106,7 @@ class ProfileTab extends ConsumerWidget {
                                 color: bgColor,
                                 borderRadius:
                                     BorderRadius.circular(size.width * 0.05),
-                                boxShadow: boxShadow
-                            ),
+                                boxShadow: boxShadow),
                             child: FittedBox(
                                 child: FaIcon(
                               FontAwesomeIcons.qrcode,
@@ -118,7 +119,7 @@ class ProfileTab extends ConsumerWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 2*space,
+                  height: 2 * space,
                 ),
                 SizedBox(
                     height: size.height * 0.1,
@@ -129,7 +130,6 @@ class ProfileTab extends ConsumerWidget {
                           userModel.studentName.toString(),
                           weight: FontWeight.w900,
                         ))),
-
                 SizedBox(
                   height: space,
                 ),
@@ -160,9 +160,11 @@ class ProfileTab extends ConsumerWidget {
                       child: ProfileTile(
                         title: "Scholarship",
                         isHalf: true,
-                        content: userModel.studentScholarshipEligibile!
-                            ? "Not Eligible"
-                            : "Not Eligible",
+                        content: (userModel.studentScholarshipEligibile == null)
+                            ? "Not Found"
+                            : (userModel.studentScholarshipEligibile!
+                                ? "Eligible"
+                                : "Not Eligible"),
                         icon: FontAwesomeIcons.graduationCap,
                       ),
                     ),
@@ -178,7 +180,7 @@ class ProfileTab extends ConsumerWidget {
                       child: ProfileTile(
                         title: "Date of Birth",
                         isHalf: true,
-                        content: userModel.studentDob.toString() ,
+                        content: userModel.studentDob.toString(),
                         icon: FontAwesomeIcons.cakeCandles,
                       ),
                     ),
