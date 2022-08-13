@@ -76,7 +76,7 @@ class ProfileTab extends ConsumerWidget {
                       boxShadow: boxShadow),
                   child: InkWell(
                     onTap: () {
-                      print("ddddddddddddd");
+                      ref.watch(qrController.notifier).qrGenerator(context,data:ref.watch(userController).studentId??"Error", autoDispose: true);
                     },
                     child: Stack(
                       clipBehavior: Clip.none,
@@ -224,7 +224,7 @@ class ProfileTab extends ConsumerWidget {
                   icon: FontAwesomeIcons.phone,
                 ),
                 SizedBox(
-                  height: size.height * 0.8,
+                  height: size.height * 0.1,
                 ),
               ],
             ),

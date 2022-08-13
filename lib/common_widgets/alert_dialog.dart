@@ -3,10 +3,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sih_student_app/services/providers.dart';
 
 void alertDialog(BuildContext context,
     {String? msg,
-    required String asset,
+    String? asset,
+      Widget? widget,
     required bool autoDispose,
     Duration? duration}) {
   Timer? _timer;
@@ -32,11 +34,13 @@ void alertDialog(BuildContext context,
                     textAlign: TextAlign.center,
                   )
                 : null,
-            content: Lottie.asset(
+            content:
+            (asset!=null)?Lottie.asset(
               asset,
               repeat: true,
               width: 100,
-            ),
+            )
+            :SizedBox(width:100, height:100, child: widget),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25))),
             actions: false

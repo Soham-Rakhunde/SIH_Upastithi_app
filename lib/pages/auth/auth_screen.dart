@@ -18,8 +18,8 @@ class AuthScreen extends ConsumerStatefulWidget {
 }
 
 class _AuthScreenState extends ConsumerState<AuthScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+      with SingleTickerProviderStateMixin {
+    late AnimationController _controller;
 
   @override
   void initState() {
