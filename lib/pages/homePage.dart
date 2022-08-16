@@ -50,7 +50,7 @@ class _HomePageState extends ConsumerState<HomePage>
         ref.watch(tabsDirection.notifier).state = true;
       }
     });
-    
+
     return Scaffold(
       // backgroundColor: homePageColors[ref.watch()],
       body: PageTransitionSwitcher(

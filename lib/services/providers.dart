@@ -28,9 +28,9 @@ final qrController = StateNotifierProvider<QrNotifier, QrModel>((ref) {
 });
 
 
-final scholarshipController = StateNotifierProvider<ScholarshipNotifier, ScholarshipModel>((ref) {
-  return ScholarshipNotifier(ScholarshipModel());
-});
+// final scholarshipController = StateNotifierProvider<ScholarshipNotifier, Scholarships>((ref) {
+//   return ScholarshipNotifier(Scholarships());
+// });
 
 
 enum homeTabs { dashboard, scholarship, qr, profile }

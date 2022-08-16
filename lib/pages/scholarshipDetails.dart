@@ -2,20 +2,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sih_student_app/common_widgets/alert_dialog.dart';
 import 'package:sih_student_app/common_widgets/centered_large_fab.dart';
 import 'package:sih_student_app/common_widgets/profileTiles.dart';
 import 'package:sih_student_app/services/colors.dart';
+import 'package:sih_student_app/services/scholarships/scholarship_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ScholarshipDetail extends ConsumerStatefulWidget {
-  const ScholarshipDetail({Key? key}) : super(key: key);
+class ScholarshipDetail extends ConsumerWidget {
+  ScholarshipDetail({Key? key, required this.model}) : super(key: key);
+
+  ScholarshipModel model;
 
   @override
-  ConsumerState<ScholarshipDetail> createState() => _ScholarshipDetailState();
-}
-
-class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final height = size.height;
     final width = size.width;
@@ -27,14 +27,23 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
         text: "Register",
         color: Colors.teal,
         textColor: Colors.white,
-        func: () {
+        func: () async {
+          if(model.scholarshipLink==null)
+            alertDialog(context,
+                msg: "Register Link not Found",
+                asset: 'assets/lottie/empty.json',
+                autoDispose: false);
+          else{
+            final url = Uri.parse(model.scholarshipLink!);
+            await launchUrl(
+              url
+            );}
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Padding(
         padding: EdgeInsets.all(width / 12),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +75,7 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                 height:2* space,
               ),
               Text(
-                "MahaDBT ressssssr",
+                model.scholarshipName??"Error",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: (3 * width) / 30,
@@ -80,7 +89,7 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                 padding: EdgeInsets.symmetric(
                     horizontal: (0.2 * width) / 30, vertical: (width) / 30),
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a turpis id nulla euismod posuere sit amet vitae mi. Fusce vitae gravida dolor. Etiam ac tellus nibh. Vivamus congue neque vel ligula convallis ullamcorper.",
+                  model.scholarshipDescription??"Error",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: (1.5 * width) / 30,
@@ -110,10 +119,10 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                   Expanded(
                     flex: 5,
                     child: ProfileTile(
-                      title: "25 Mar 2022",
+                      title: "Start Date",
                       isHalf: true,
-                      content: "Hindu",
-                      icon: FontAwesomeIcons.graduationCap,
+                      content: model.scholarshipStartDate.toString(),
+                      icon: FontAwesomeIcons.solidCalendarCheck,
                     ),
                   ),
                   SizedBox(
@@ -124,8 +133,8 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                     child: ProfileTile(
                       title: "Last Date",
                       isHalf: true,
-                      content: "16 Aug 2022",
-                      icon: FontAwesomeIcons.graduationCap,
+                      content: model.scholarshipEndDate.toString(),
+                      icon: FontAwesomeIcons.solidCalendarXmark,
                     ),
                   ),
                 ],
@@ -154,8 +163,8 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                     child: ProfileTile(
                       title: "Religion",
                       isHalf: true,
-                      content: "Hindu",
-                      icon: FontAwesomeIcons.graduationCap,
+                      content: model.scholarshipEligibility?.religion??"Error",
+                      icon: FontAwesomeIcons.personPraying,
                     ),
                   ),
                   SizedBox(
@@ -166,8 +175,8 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                     child: ProfileTile(
                       title: "Attendance",
                       isHalf: true,
-                      content: ">75%",
-                      icon: FontAwesomeIcons.graduationCap,
+                      content: ">${model.scholarshipEligibility?.attendanceAbove}",
+                      icon: FontAwesomeIcons.clipboardUser,
                     ),
                   ),
                 ],
@@ -180,9 +189,9 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                   Expanded(
                     flex: 6,
                     child: ProfileTile(
-                      title: "Academic Score",
+                      title: "Academics",
                       isHalf: true,
-                      content: ">9.4 CGPA",
+                      content: ">${model.scholarshipEligibility?.academicScoreAbove}%",
                       icon: FontAwesomeIcons.graduationCap,
                     ),
                   ),
@@ -194,8 +203,8 @@ class _ScholarshipDetailState extends ConsumerState<ScholarshipDetail> {
                     child: ProfileTile(
                       title: "Caste",
                       isHalf: true,
-                      content: "Maratha",
-                      icon: FontAwesomeIcons.graduationCap,
+                      content: model.scholarshipEligibility?.caste??"Error",
+                      icon: FontAwesomeIcons.solidCopyright,
                     ),
                   ),
                 ],

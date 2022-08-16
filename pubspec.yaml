@@ -53,6 +53,10 @@ dependencies:
   http: ^0.13.5
   jiffy: ^5.0.0
   qr_flutter: ^4.0.0
+  flutter_staggered_animations:
+    git:
+      url: https://github.com/Tkko/flutter_staggered_animations
+      ref: Flutter-3.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

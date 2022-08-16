@@ -213,7 +213,7 @@ class ProfileTab extends ConsumerWidget {
                 ProfileTile(
                   title: "Email",
                   content: userModel.studentEmail ?? "Not Found",
-                  icon: FontAwesomeIcons.envelope,
+                  icon: FontAwesomeIcons.solidEnvelope,
                 ),
                 SizedBox(
                   height: space,

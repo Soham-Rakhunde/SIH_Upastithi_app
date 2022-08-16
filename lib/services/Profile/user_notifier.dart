@@ -56,8 +56,9 @@ class UserNotifier extends StateNotifier<UserModel> {
         "https://upastithiapi.herokuapp.com/viewStudentByUUID?studentUUID=$uuid");
     var response = await http.get(url);
 
-    print('Response status: ${response.statusCode}');
+    print('UserData: ${response.statusCode}');
     if (response.statusCode == 200) {
+      print('getuserdata');
       print(response.body);
       Map<String, dynamic> responseJson = json.decode(response.body);
 
@@ -78,9 +79,6 @@ class UserNotifier extends StateNotifier<UserModel> {
     var url = Uri.https("upastithiapi.herokuapp.com", "resetPassword");
     var response = await http.post(url,
         body: {"userUUID": state.studentUuid, "newPassword": newPassword});
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
   }
 
   resetPassword(String email, VoidCallback onSignInPressed, WidgetRef ref,
