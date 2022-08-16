@@ -127,7 +127,7 @@ class ProfileTab extends ConsumerWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: size.width * 0.05),
                         child: FittedText(
-                          userModel.studentName.toString(),
+                          userModel.studentName?.shortName()??"Not Found",
                           weight: FontWeight.w900,
                         ))),
                 SizedBox(
@@ -144,12 +144,12 @@ class ProfileTab extends ConsumerWidget {
                 Row(
                   children: [
                     Expanded(
-                      flex: 5,
+                      flex: 6,
                       child: ProfileTile(
                         title: "Roll No.",
                         isHalf: true,
                         content: userModel.studentRollNumber.toString(),
-                        icon: FontAwesomeIcons.graduationCap,
+                        icon: FontAwesomeIcons.solidRegistered,
                       ),
                     ),
                     SizedBox(
@@ -218,13 +218,37 @@ class ProfileTab extends ConsumerWidget {
                 SizedBox(
                   height: space,
                 ),
-                ProfileTile(
-                  title: "Phone Number",
-                  content: userModel.studentPhoneNumber.toString(),
-                  icon: FontAwesomeIcons.phone,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: ProfileTile(
+                        height: size.height*0.11,
+                        title: "Phone Number",
+                        content: userModel.studentPhoneNumber.toString(),
+                        icon: FontAwesomeIcons.phone,
+                        isHalf: true,
+                      ),
+                    ),
+                    SizedBox(
+                      width: space,
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: ProfileTile(
+                        height: size.height*0.11,
+                        title: "Blood Group",
+                        isHalf: true,
+                        content: userModel.studentBloodGroup
+                            ?? "Not Found",
+                        icon: FontAwesomeIcons.droplet,
+                      ),
+                    ),
+                  ],
                 ),
+
                 SizedBox(
-                  height: size.height * 0.1,
+                  height: 5*space,
                 ),
               ],
             ),

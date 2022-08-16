@@ -58,7 +58,11 @@ class UserNotifier extends StateNotifier<UserModel> {
 
     print('Response status: ${response.statusCode}');
     if (response.statusCode == 200) {
+      print(response.body);
+      Map<String, dynamic> responseJson = json.decode(response.body);
+
       state = UserModel.fromRawJson(response.body);
+      state = state.copyWith();
     }
     else{
       Map<String, dynamic> responseJson = json.decode(response.body);

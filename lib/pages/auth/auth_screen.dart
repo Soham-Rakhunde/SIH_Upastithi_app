@@ -38,7 +38,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print(size);
     return Scaffold(
       body: Stack(
         children: [
