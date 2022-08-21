@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:jiffy/jiffy.dart';
+import 'package:sih_student_app/services/Profile/user_model.dart';
 
 class UserModel {
   UserModel({
@@ -184,6 +185,16 @@ class CreatedTime {
     return "${time.date} ${time.MMM} ${time.year}";
   }
 
+  String getTime() {
+    final time = Jiffy.unixFromSecondsSinceEpoch(seconds??0);
+    return "${time.Hm}";
+  }
+
+  DateTime toDateTime() {
+    final time = Jiffy.unixFromSecondsSinceEpoch(seconds??0);
+    return DateTime(time.year, time.month, time.date);
+  }
+
   CreatedTime copyWith({
     int? seconds,
     int? nanoseconds,
@@ -325,19 +336,142 @@ class StudentAddress {
 // }
 
 class StudentAttendance {
-  StudentAttendance();
+  StudentAttendance({
+    required this.classList
+  });
 
-  StudentAttendance copyWith() => StudentAttendance();
+  List<AttendanceClass> classList;
+
+  StudentAttendance copyWith(List<AttendanceClass>? classList) =>
+      StudentAttendance(
+        classList: classList ?? this.classList,
+      );
 
   factory StudentAttendance.fromRawJson(String str) =>
       StudentAttendance.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory StudentAttendance.fromJson(Map<String, dynamic> json) =>
-      StudentAttendance();
+  factory StudentAttendance.fromJson(Map<String, dynamic> json) {
+    List<AttendanceClass> li = [];
+    json.forEach((String classId, classJson) {
+      li.add(AttendanceClass.fromJson(classId, classJson));
+    });
+
+      return StudentAttendance(
+          classList: li
+      );
+}
 
   Map<String, dynamic> toJson() => {};
+}
+
+class AttendanceClass {
+  AttendanceClass({
+    required this.classId,
+    required this.teamList
+  });
+
+  String classId;
+  List<Team> teamList;
+
+  AttendanceClass copyWith(String? classId, List<Team>? teamList) =>
+      AttendanceClass(
+        classId: classId ?? this.classId,
+        teamList: teamList ?? this.teamList,
+      );
+
+  // factory AttendanceClass.fromRawJson(String str) =>
+  //     AttendanceClass.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory AttendanceClass.fromJson(String classId, Map<String, dynamic> classJson) {
+    List<Team> li = [];
+    classJson.forEach((teamId, teamJson) {
+      li.add(Team.fromJson(teamId, teamJson));
+    });
+
+    return AttendanceClass(
+      classId: classId,
+      teamList: li
+    );
+  }
+
+  Map<String, dynamic> toJson() => {};
+
+}
+
+class Team{
+  Team({
+    required this.teamId,
+    required this.recordList
+  });
+
+  String teamId;
+  List<AttendanceRecord> recordList;
+
+  Team copyWith(String? teamId, List<AttendanceRecord>? recordList) =>
+      Team(
+        teamId: teamId ?? this.teamId,
+        recordList: recordList ?? this.recordList,
+      );
+
+  // factory AttendanceClass.fromRawJson(String str) =>
+  //     AttendanceClass.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Team.fromJson(String teamId, Map<String, dynamic> teamJson) {
+    List<AttendanceRecord> li = [];
+    teamJson.forEach((attId, attJson) {
+      li.add(AttendanceRecord.fromJson(attId, attJson));
+    });
+
+    return Team(
+        teamId: teamId,
+        recordList: li
+    );
+  }
+
+  Map<String, dynamic> toJson() => {};
+
+
+}
+
+class AttendanceRecord{
+  AttendanceRecord({
+    required this.attId,
+    required this.isPresent,
+    required this.timestamp
+  });
+
+  String attId;
+  bool isPresent;
+  CreatedTime timestamp;
+
+  AttendanceRecord copyWith(String? attId, bool? isPresent, CreatedTime? timestamp) =>
+      AttendanceRecord(
+        attId: attId ?? this.attId,
+        isPresent: isPresent ?? this.isPresent,
+        timestamp: timestamp ?? this.timestamp,
+      );
+
+  // factory AttendanceClass.fromRawJson(String str) =>
+  //     AttendanceClass.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory AttendanceRecord.fromJson(String attId, Map<String, dynamic> attJson) {
+    return AttendanceRecord(
+        attId: attId,
+        isPresent: attJson['attendance'],
+        timestamp: CreatedTime.fromJson(attJson['timestamp'])
+    );
+  }
+
+  Map<String, dynamic> toJson() => {};
+
 }
 
 class StudentName {

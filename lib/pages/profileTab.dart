@@ -19,7 +19,7 @@ class ProfileTab extends ConsumerWidget {
       shaderCallback: (rect) {
         return LinearGradient(
           begin: Alignment.topCenter,
-          stops: [0.865, 0.865],
+          stops: [0.87, 0.87],
           end: Alignment.bottomCenter,
           colors: [Colors.transparent, profileColor],
         ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
@@ -30,7 +30,7 @@ class ProfileTab extends ConsumerWidget {
           child: Container(
             width: size.width,
             color: const Color(0xffECEFF8),
-            padding: EdgeInsets.all(size.width * 0.08),
+            padding: EdgeInsets.all(size.width * 0.06),
             child: Column(
               children: [
 
@@ -94,14 +94,14 @@ class ProfileTab extends ConsumerWidget {
                           ),
                         ),
                         Positioned(
-                          bottom: -size.width * 0.08,
-                          right: -size.width * 0.08,
-                          width: size.width * 0.17,
-                          height: size.width * 0.17,
+                          bottom: -size.width * 0.075,
+                          right: -size.width * 0.075,
+                          width: size.width * 0.16,
+                          height: size.width * 0.16,
                           child: Container(
                             clipBehavior: Clip.hardEdge,
                             alignment: Alignment.center,
-                            padding: EdgeInsets.all(size.width * 0.01),
+                            padding: EdgeInsets.all(size.width * 0.005),
                             decoration: BoxDecoration(
                                 color: bgColor,
                                 borderRadius:
@@ -110,7 +110,7 @@ class ProfileTab extends ConsumerWidget {
                             child: FittedBox(
                                 child: FaIcon(
                               FontAwesomeIcons.qrcode,
-                              size: size.width / 11,
+                              size: size.width / 12,
                             )),
                           ),
                         )
@@ -128,7 +128,7 @@ class ProfileTab extends ConsumerWidget {
                             EdgeInsets.symmetric(horizontal: size.width * 0.05),
                         child: FittedText(
                           userModel.studentName?.shortName()??"Not Found",
-                          weight: FontWeight.w900,
+                          weight: FontWeight.w600,
                         ))),
                 SizedBox(
                   height: space,
@@ -248,7 +248,7 @@ class ProfileTab extends ConsumerWidget {
                 ),
 
                 SizedBox(
-                  height: 5*space,
+                  height: 5.5*space,
                 ),
               ],
             ),

@@ -74,18 +74,18 @@ class _HomePageState extends ConsumerState<HomePage>
       bottomNavigationBar: DotNavigationBar(
         currentIndex: selectedIndex,
         marginR: EdgeInsets.symmetric(
-            vertical: size.width * 0.05, horizontal: size.width * 0.08),
+            vertical: size.width * 0.05, horizontal: size.width * 0.06),
         itemPadding: EdgeInsets.symmetric(
             vertical: size.width * 0.04, horizontal: size.width * 0.06),
         dotIndicatorColor: Colors.transparent,
-        borderRadius: 20,
+        borderRadius: size.width * 0.04,
         onTap: _handleIndexChanged,
-        boxShadow: (ref.watch(homeTabController).index %2 == 0)  ? boxShadow : [],
+        // boxShadow: (ref.watch(homeTabController).index %2 == 0)  ? boxShadow : [],
         items: [
           /// Home
           DotNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.chartLine),
-            selectedColor: Colors.purple,
+            icon: const FaIcon(FontAwesomeIcons.chartSimple),
+            selectedColor: Colors.blue,
           ),
 
           /// Likes

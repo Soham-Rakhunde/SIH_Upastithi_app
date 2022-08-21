@@ -1,13 +1,14 @@
+import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sih_student_app/pages/auth/auth_screen.dart';
 import 'package:sih_student_app/pages/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // cameras = await availableCameras();
+  // await Hive.initFlutter();
+  // await HiveBoxes.initialize();
   await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -36,12 +37,44 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         useMaterial3: true,
         // fontFamily: "MontserratAlternates",
-        textTheme: GoogleFonts.montserratAlternatesTextTheme(
-          Theme.of(context).textTheme,
-        ),
+        // textTheme: GoogleFonts.montserratAlternatesTextTheme(
+        //   Theme.of(context).textTheme,
+        // ),
       ),
-      // home: const AuthScreen(),
       home: const SplashScreen(),
+      // home: _MyHomePage(),
     );
   }
 }
+// import 'package:camera/camera.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:sih_student_app/services/face_detect/page/face_recognition/camera_page.dart';
+// import 'package:sih_student_app/services/face_detect/page/login_page.dart';
+// import 'package:sih_student_app/services/face_detect/utils/local_db.dart';
+//
+// Future main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   cameras = await availableCameras();
+//   await Hive.initFlutter();
+//   await HiveBoxes.initialize();
+//   await SystemChrome.setPreferredOrientations([
+//     DeviceOrientation.portraitUp,
+//     DeviceOrientation.portraitDown,
+//   ]);
+//
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) => const MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     title: "Face Auth",
+//     home: LoginPage(),
+//   );
+// }
+//

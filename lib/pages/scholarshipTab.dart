@@ -20,7 +20,7 @@ class ScholarshipTab extends ConsumerWidget {
     AsyncValue<List<ScholarshipModel>> list = ref.watch(scholarshipsProvider);
     return Container(
       color: scholarshipColor,
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
       child: list.when(
         loading: () => Center(
           child: Lottie.asset(
@@ -43,7 +43,7 @@ class ScholarshipTab extends ConsumerWidget {
                     delay: const Duration(milliseconds: 400),
                     position: index,
                     child: SlideAnimation(
-                        duration: const Duration(seconds: 1, milliseconds: 500),
+                        duration: const Duration(seconds: 1),
                         curve: Curves.decelerate,
                         child: FadeInAnimation(
                           child: Column(

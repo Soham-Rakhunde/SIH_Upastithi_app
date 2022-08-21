@@ -29,7 +29,7 @@ class ProfileTile extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(size.width * 0.06),
+          borderRadius: BorderRadius.circular(size.width * 0.04),
           // boxShadow: boxShadow
       ),
       child: Row(
@@ -47,12 +47,12 @@ class ProfileTile extends StatelessWidget {
                 ListTile(
                   title: Text(
                     title,
-                    style: TextStyle(
+                    style: TextStyle(color: Colors.black38,
                         fontWeight: FontWeight.w600, fontSize: size.width / 25),
                   ),
                   subtitle: Text(
                     content,
-                    style: TextStyle(
+                    style: TextStyle(color: Colors.black87,
                         fontWeight: FontWeight.w600, fontSize: size.width / 24),
                   ),
                 ),

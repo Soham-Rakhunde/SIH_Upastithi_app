@@ -64,6 +64,11 @@ class UserNotifier extends StateNotifier<UserModel> {
 
       state = UserModel.fromRawJson(response.body);
       state = state.copyWith();
+
+      print(state.studentAttendance?.classList.elementAt(0).classId);
+      print(state.studentAttendance?.classList.elementAt(0).teamList.elementAt(0).teamId);
+      print(state.studentAttendance?.classList.elementAt(0).teamList.elementAt(0).recordList.elementAt(0).attId);
+      print(state.studentAttendance?.classList.elementAt(0).teamList.elementAt(0).recordList.elementAt(0).timestamp );
     }
     else{
       Map<String, dynamic> responseJson = json.decode(response.body);
@@ -72,8 +77,10 @@ class UserNotifier extends StateNotifier<UserModel> {
           asset: 'assets/lottie/empty.json',
           autoDispose: false);
     }
-    print(state.studentName);
+    print(state.studentAttendance);
+
   }
+
 
   changePassword(String newPassword) async {
     var url = Uri.https("upastithiapi.herokuapp.com", "resetPassword");
@@ -104,4 +111,38 @@ class UserNotifier extends StateNotifier<UserModel> {
           autoDispose: false);
     }
   }
+
+  List<AttendanceRecord> getAttendanceHistory(){
+    List<AttendanceRecord> li = [];
+    if(state.studentAttendance != null && state.studentAttendance!.classList.isNotEmpty){
+      for (var attClass in state.studentAttendance!.classList) {
+        for (var team in attClass.teamList) {
+          li.addAll(team.recordList);
+        }
+      }
+    }
+    li.sort((a, b) => b.timestamp.seconds!.compareTo(a.timestamp.seconds??0));
+    return li;
+  }
+  Map<DateTime, int> getHeatMapData(){
+    Map<DateTime, int> map = {};
+    print("Hello");
+    if(state.studentAttendance != null && state.studentAttendance!.classList.isNotEmpty){
+      for (var attClass in state.studentAttendance!.classList) {
+        for (var team in attClass.teamList) {
+          for (var record in team.recordList) {
+            print(record.timestamp.toDateTime());
+            if(map.containsKey(record.timestamp.toDateTime())) {
+              map.update(record.timestamp.toDateTime(), (value) => value+1);
+            }else{
+              map[record.timestamp.toDateTime()] = 1;
+            }
+          }
+        }
+      }
+    }
+    print(map);
+    return map;
+  }
+
 }
