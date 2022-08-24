@@ -101,9 +101,9 @@ class _HomePageState extends ConsumerState<HomePage>
       bottomNavigationBar: DotNavigationBar(
         currentIndex: selectedIndex,
         marginR: EdgeInsets.symmetric(
-            vertical: size.width * 0.05, horizontal: size.width * 0.09),
+            vertical: size.width * 0.05, horizontal: size.width * 0.06),
         itemPadding: EdgeInsets.symmetric(
-            vertical: size.width * 0.04, horizontal: size.width * 0.03),
+            vertical: size.width * 0.04, horizontal: size.width * 0.05),
         dotIndicatorColor: Colors.transparent,
         borderRadius: size.width * 0.04,
         onTap: _handleIndexChanged,
