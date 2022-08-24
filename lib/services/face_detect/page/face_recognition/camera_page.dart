@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -49,30 +51,59 @@ class _FaceScanScreenState extends State<FaceScanScreen> {
 
 
   Future<void> detectFacesFromImage(CameraImage image) async {
-    InputImageData _firebaseImageMetadata = InputImageData(
-      imageRotation: rotationIntToImageRotation(
-          _cameraController.description.sensorOrientation),
-      inputImageFormat: InputImageFormat.BGRA8888,
-      size: Size(image.width.toDouble(), image.height.toDouble()),
-      planeData: image.planes.map(
-            (Plane plane) {
-          return InputImagePlaneMetadata(
-            bytesPerRow: plane.bytesPerRow,
-            height: plane.height,
-            width: plane.width,
-          );
-        },
-      ).toList(),
-    );
+    InputImage _firebaseVisionImage;
+    if (image.planes.isNotEmpty) {
+      print("innfd");
+      // There are usually a few planes per image, potentially worth looking
+      // at some sort of best from provided planes solution
 
-    InputImage _firebaseVisionImage = InputImage.fromBytes(
-      bytes: image.planes[0].bytes,
-      inputImageData: _firebaseImageMetadata,
-    );
-    var result = await _faceDetector.processImage(_firebaseVisionImage);
-    if (result.isNotEmpty) {
-      facesDetected = result;
+      InputImageData iid = InputImageData(
+        inputImageFormat: InputImageFormatMethods.fromRawValue(image.format.raw)!,
+        size: Size(image.width.toDouble(), image.height.toDouble()),
+        imageRotation: rotationIntToImageRotation(
+            _cameraController.description.sensorOrientation),
+        planeData: image.planes
+            .map((Plane plane) => InputImagePlaneMetadata(
+          bytesPerRow: plane.bytesPerRow,
+          height: plane.height,
+          width: plane.width,
+        ))
+            .toList(),
+      );
+
+      Uint8List bytes = Uint8List.fromList(
+        image.planes.fold(<int>[], (List<int> previousValue, element) => previousValue..addAll(element.bytes)),
+      );
+
+      InputImage _firebaseVisionImage = InputImage.fromBytes(
+        bytes: bytes,
+        inputImageData: iid,
+      );
+      var result = await _faceDetector.processImage(_firebaseVisionImage);
+      if (result.isNotEmpty) {
+        facesDetected = result;
+      }
     }
+    // InputImageData _firebaseImageMetadata = InputImageData(
+    //   imageRotation: rotationIntToImageRotation(
+    //       _cameraController.description.sensorOrientation),
+    //   inputImageFormat: InputImageFormat.BGRA8888,
+    //   size: Size(image.width.toDouble(), image.height.toDouble()),
+    //   planeData: image.planes.map(
+    //         (Plane plane) {
+    //       return InputImagePlaneMetadata(
+    //         bytesPerRow: plane.bytesPerRow,
+    //         height: plane.height,
+    //         width: plane.width,
+    //       );
+    //     },
+    //   ).toList(),
+    // );
+    //
+    // InputImage _firebaseVisionImage = InputImage.fromBytes(
+    //   bytes: image.planes[0].bytes,
+    //   inputImageData: _firebaseImageMetadata,
+    // );
   }
 
   Future<void> _predictFacesFromImage({required CameraImage image}) async {
