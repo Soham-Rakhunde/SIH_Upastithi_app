@@ -40,7 +40,7 @@ class ScholarshipTab extends ConsumerWidget {
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return AnimationConfiguration.staggeredList(
-                    delay: const Duration(milliseconds: 400),
+                    delay: const Duration(milliseconds: 120),
                     position: index,
                     child: SlideAnimation(
                         duration: const Duration(seconds: 1),
@@ -51,11 +51,11 @@ class ScholarshipTab extends ConsumerWidget {
                               if (index == 0)
                                 SizedBox(
                                   height:
-                                  size.height * 0.13, // Set this height
+                                  size.height * 0.1, // Set this height
                                   child: Container(
                                       padding: EdgeInsets.symmetric(
-                                          vertical: size.height * 0.03,
-                                          horizontal: size.width * 0.15),
+                                          vertical: size.height * 0.01,
+                                          horizontal: size.width * 0.2),
                                       height: double.infinity,
                                       child: const FittedBox(
                                         fit: BoxFit.fitWidth,

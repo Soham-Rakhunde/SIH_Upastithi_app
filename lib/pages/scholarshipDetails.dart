@@ -42,7 +42,7 @@ class ScholarshipDetail extends ConsumerWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Padding(
-        padding: EdgeInsets.all(width / 12),
+        padding: EdgeInsets.all(width*0.06),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -78,7 +78,7 @@ class ScholarshipDetail extends ConsumerWidget {
                 model.scholarshipName??"Error",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: (3 * width) / 30,
+                  fontSize:  width / 13,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -209,7 +209,7 @@ class ScholarshipDetail extends ConsumerWidget {
                   ),
                 ],
               ),
-              SizedBox(height: space*5,)
+              SizedBox(height: space*5.5,)
             ],
           ),
         ),

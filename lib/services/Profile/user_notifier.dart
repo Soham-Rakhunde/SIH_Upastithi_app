@@ -51,7 +51,7 @@ class UserNotifier extends StateNotifier<UserModel> {
         }), (route) => false);
   }
 
-  getUserData(String uuid, BuildContext context) async {
+  Future<void> getUserData(String uuid, BuildContext context) async {
     var url = Uri.parse(
         "https://upastithiapi.herokuapp.com/viewStudentByUUID?studentUUID=$uuid");
     var response = await http.get(url);
@@ -63,7 +63,9 @@ class UserNotifier extends StateNotifier<UserModel> {
       Map<String, dynamic> responseJson = json.decode(response.body);
 
       state = UserModel.fromRawJson(response.body);
-      state = state.copyWith();
+      state = state.copyWith(
+        studentId: state.studentId
+      );
 
       print(state.studentAttendance?.classList.elementAt(0).classId);
       print(state.studentAttendance?.classList.elementAt(0).teamList.elementAt(0).teamId);

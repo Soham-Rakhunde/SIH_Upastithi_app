@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sih_student_app/common_widgets/alert_dialog.dart';
-import 'package:sih_student_app/services/providers.dart';
 import 'package:http/http.dart' as http;
 import 'package:sih_student_app/services/scholarships/scholarship_model.dart';
 

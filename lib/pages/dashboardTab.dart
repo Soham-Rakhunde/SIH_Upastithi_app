@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:animations/animations.dart';
-import 'package:flutter_annual_task/flutter_annual_task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,20 +14,6 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class DashboardTab extends ConsumerWidget {
   const DashboardTab({Key? key}) : super(key: key);
-
-  static List<AnnualTaskItem> generateAnnualTask({int? year, int? sampleSize}) {
-    var rnd = Random();
-    sampleSize = sampleSize ?? max(80, min(365, rnd.nextInt(200)));
-    year ??= DateTime.now().year;
-    DateTime prevDate = DateTime(year, 1, 1);
-    return List.generate(sampleSize, (idx) {
-      int maxDiff =
-          (365 - prevDate.difference(DateTime(year!, 12, 31)).inDays) ~/
-              (sampleSize! - idx);
-      prevDate = prevDate.add(Duration(days: rnd.nextInt(maxDiff) + 1));
-      return AnnualTaskItem(prevDate, rnd.nextDouble());
-    });
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,7 +85,7 @@ class DashboardTab extends ConsumerWidget {
                             initialValue: 70,
                             appearance: CircularSliderAppearance(
                               animationEnabled: true,
-                              animDurationMultiplier: 0.1,
+                              animDurationMultiplier: 2,
                               size: lerpDouble(0, diameter, 0.865)!,
                               startAngle: 270,
                               angleRange: 360,
@@ -196,7 +181,7 @@ class DashboardTab extends ConsumerWidget {
   Widget buildDashBoxes(
       Size size, double space, String name, IconData icon, Widget onTapOpen) {
     return OpenContainer(
-      transitionDuration: const Duration(milliseconds: 1000),
+      transitionDuration: const Duration(milliseconds: 500),
       closedElevation: 0,
       transitionType: ContainerTransitionType.fadeThrough,
       closedColor: Colors.white,

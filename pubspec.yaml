@@ -45,19 +45,18 @@ dependencies:
   fl_chart: ^0.55.1
   sleek_circular_slider: ^2.0.1
   mobile_scanner: ^2.0.0
-  flutter_annual_task: ^0.2.0
 #  google_fonts: ^3.0.1
   firebase_auth: ^3.6.3
-  cloud_firestore: ^3.4.4
   firebase_core: ^1.20.1
   http: ^0.13.5
   jiffy: ^5.0.0
   qr_flutter: ^4.0.0
-  hive_flutter: ^1.1.0
-  camera: 0.9.4+18
-  tflite_flutter: ^0.9.0
-  google_ml_kit: 0.7.3
-  image: 3.1.3
+  flutter_blue_plus: ^1.3.1
+#  hive_flutter: ^1.1.0
+#  camera: 0.9.4+18
+#  tflite_flutter: ^0.9.0
+#  google_ml_kit: 0.7.3
+#  image: 3.1.3
   flutter_heatmap_calendar: ^1.0.4
   flutter_staggered_animations:
     git:

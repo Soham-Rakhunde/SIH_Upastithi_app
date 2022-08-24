@@ -16,7 +16,7 @@ class centeredLargeFAB extends StatelessWidget {
     return InkWell(
       onTap: func,
       child: Container(
-        width: size.width*0.8,
+        width: size.width*0.88,
         height: size.height*0.08,
         padding: EdgeInsets.all(size.width*0.04),
         decoration: BoxDecoration(

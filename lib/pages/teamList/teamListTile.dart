@@ -6,22 +6,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sih_student_app/pages/scholarshipDetails.dart';
 import 'package:sih_student_app/services/colors.dart';
 import 'package:sih_student_app/services/scholarships/scholarship_model.dart';
+import 'package:sih_student_app/services/subject_wise/subjectModel.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class TeamListTile extends ConsumerWidget {
-  TeamListTile({Key? key, required this.color}) : super(key: key);
+  TeamListTile({Key? key,required this.model, required this.color}) : super(key: key);
   Color color;
+  TeamModel model;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final diameter = 20 * size.height / 45 - 30;
-    final pieWidth = size.width / 7;
+    final pieWidth = size.width / 8;
     double height = size.height * 0.11;
+    double percent = (model.total == 0 )? 100:100*(model.present??1) /(model.total??1);
+
+    List<Color> statusColor;
+    if(percent>=90)
+      statusColor = [Colors.greenAccent,Colors.green];
+    else if(percent>=80)
+      statusColor = [Colors.lightGreenAccent,Colors.lightGreen];
+    else if(percent>=75)
+      statusColor = [Colors.yellowAccent,Colors.yellow];
+    else if(percent>=50)
+      statusColor =[Colors.orangeAccent,Colors.orange];
+    else if(percent>0)
+      statusColor =[Colors.deepOrangeAccent.shade100,Colors.deepOrange];
+    else
+      statusColor = [Colors.redAccent,Colors.red];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: size.height * 0.008),
       child: OpenContainer(
-        transitionDuration: const Duration(milliseconds: 1000),
+        transitionDuration: const Duration(milliseconds: 500),
         closedElevation: 0,
         transitionType: ContainerTransitionType.fadeThrough,
         closedColor: Colors.white,
@@ -50,8 +67,9 @@ class TeamListTile extends ConsumerWidget {
                     width: double.infinity,
                     height: double.infinity,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: color,
+                    decoration: BoxDecoration (
+                      // color: statusColor[0],
+                      gradient: LinearGradient(colors: statusColor.reversed.toList()),
                       borderRadius: BorderRadius.circular(size.width * 0.06),
                     ),
                   ),
@@ -69,14 +87,14 @@ class TeamListTile extends ConsumerWidget {
                             visualDensity:
                             const VisualDensity(horizontal: 0, vertical: -4),
                             title: Text(
-                              "Computer Networks",
+                              model.teamName??"Subject",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: size.width / 23),
                             ),
                             subtitle: Text(
-                              "13/21",
+                              "${model.present??0} / ${model.total??0}",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: size.width / 26),
@@ -94,10 +112,10 @@ class TeamListTile extends ConsumerWidget {
                       child: SleekCircularSlider(
                         min: 0,
                         max: 100,
-                        initialValue: 70,
+                        initialValue: percent,
                         appearance: CircularSliderAppearance(
                           animationEnabled: true,
-                          animDurationMultiplier: 0.1,
+                          animDurationMultiplier: 2,
                           size: lerpDouble(0, diameter, 0.865)!,
                           startAngle: 270,
                           angleRange: 360,
@@ -119,9 +137,8 @@ class TeamListTile extends ConsumerWidget {
                           ),
                           customColors: CustomSliderColors(
                             trackColor: dashColor,
-                            progressBarColors: redGradient,
+                            progressBarColors: statusColor.reversed.toList(),
                             dotColor: Colors.transparent,
-                            shadowColor: redGradient[0].withOpacity(0.1),
                             hideShadow: true,
                             gradientStartAngle: 183,
                             gradientEndAngle: 355,

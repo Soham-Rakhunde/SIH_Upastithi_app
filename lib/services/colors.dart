@@ -27,6 +27,8 @@ const textColor = Colors.black54;
 const dashColor = Color(0xffECEFF8);
 const profileColor = Color(0xffECEFF8);
 const qrColor = Color(0xcea05ffc);
+
+const bluetoothColor = Color(0xffede8f8);
 const scholarshipColor = Color(0xfff9f4f4);
 
 List<BoxShadow> boxShadow = [

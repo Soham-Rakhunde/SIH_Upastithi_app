@@ -33,7 +33,7 @@ final qrController = StateNotifierProvider<QrNotifier, QrModel>((ref) {
 // });
 
 
-enum homeTabs { dashboard, scholarship, qr, profile }
+enum homeTabs { dashboard, scholarship, qr, bluetooth, profile }
 final homeTabController = StateProvider<homeTabs>((ref) => homeTabs.dashboard);
 
 final tabsDirection = StateProvider<bool>((ref) {

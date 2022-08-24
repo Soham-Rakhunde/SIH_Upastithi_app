@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sih_student_app/pages/auth/auth_screen.dart';
 import 'package:sih_student_app/pages/homePage.dart';
+import 'package:sih_student_app/services/colors.dart';
 import 'package:sih_student_app/services/providers.dart';
 
 class SplashScreen extends ConsumerWidget {
@@ -44,47 +45,24 @@ class SplashScreen extends ConsumerWidget {
           }
           if (snapshot.hasData) {
             String uuid = ref.read(authInst).currentUser!.uid;
-            ref.read(userController.notifier).getUserData(uuid, context);
-            return const HomePage();
-            // return FutureBuilder<DocumentSnapshot>(
-            //     future: getUserData(ref),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return Center(
-            //           child: Lottie.asset(
-            //             'assets/lottie/loadingLottie.json',
-            //             fit: BoxFit.fill,
-            //           ),
-            //         );
-            //       }
-            //       // return AppDrawer();
-            //       return ZoomDrawer(
-            //         controller: ref.read(zoomController),
-            //         menuScreen: const AppDrawer(),
-            //         mainScreen: GestureDetector(
-            //             onTap: () {
-            //               ref.read(zoomController).close!();
-            //             },
-            //             child: DashBoard()),
-            //         openCurve: Curves.elasticOut,
-            //         closeCurve: Curves.elasticIn,
-            //         duration: const Duration(milliseconds: 200),
-            //         mainScreenScale: 0.4,
-            //         borderRadius: MediaQuery.of(context).size.width / 10,
-            //         showShadow: true,
-            //         angle: -8,
-            //         backgroundColor: maroonColor,
-            //         slideWidth: MediaQuery.of(context).size.width * 0.32,
-            //         shadowLayer1Color: Colors.grey.shade200,
-            //         shadowLayer2Color: Colors.grey.shade300,
-            //         boxShadow: [
-            //           BoxShadow(
-            //               color: Colors.grey.withOpacity(0.65),
-            //               blurRadius: 20,
-            //               offset: const Offset(-10, 10))
-            //         ],
-            //       );
-            //     });
+            return FutureBuilder<void>(
+                future: ref.read(userController.notifier).getUserData(uuid, context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: dashColor,
+                      child: Center(
+                        child: Lottie.asset(
+                          'assets/lottie/loadingLottie.json',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
+                  }
+                  return const HomePage();
+                });
           } else {
             return const AuthScreen();
           }

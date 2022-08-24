@@ -13,11 +13,11 @@ class ScholarshipListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    double height = size.height * 0.13;
+    double height = size.height * 0.1;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: size.height * 0.008),
       child: OpenContainer(
-        transitionDuration: const Duration(milliseconds: 1000),
+        transitionDuration: const Duration(milliseconds: 500),
         closedElevation: 0,
         transitionType: ContainerTransitionType.fadeThrough,
         closedColor: Colors.white,
@@ -53,7 +53,7 @@ class ScholarshipListTile extends ConsumerWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 28,
+                  flex: 32,
                   child: Column(
                     children: [
                       const Spacer(),
@@ -66,6 +66,7 @@ class ScholarshipListTile extends ConsumerWidget {
                                 const VisualDensity(horizontal: 0, vertical: -4),
                             title: Text(
                               model.scholarshipName??"Error",
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: size.width / 24),
@@ -74,7 +75,7 @@ class ScholarshipListTile extends ConsumerWidget {
                               model.scholarshipEndDate.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: size.width / 24),
+                                  fontSize: size.width / 27),
                             ),
                           ),
                         ),
@@ -84,8 +85,8 @@ class ScholarshipListTile extends ConsumerWidget {
                   ),
                 ),
                 Container(
-                  width: height - size.width * 0.06,
-                  height: height - size.width * 0.04,
+                  width: size.height*0.065,
+                  height: size.height*0.08,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: color,
